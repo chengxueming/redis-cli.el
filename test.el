@@ -14,3 +14,7 @@
 (append (list '("" "")) value-list)
 (push '("" "") value-list)
 (insert '("" "") value-list)
+
+(cddr '(1 2 3))
+
+(message cli-content)

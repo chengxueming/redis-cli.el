@@ -12,7 +12,7 @@
   (insert-char ? (- width left-margin (length str)))
   )
 
-(insert-string-with-margin "hello" 2 10)  hello     hello     hello   
+;; (insert-string-with-margin "hello" 2 10)
 
 (defun draw-rect(width height title key-type value-list)
   "show redis key content"
@@ -22,6 +22,7 @@
   ;; |  link   |  http://goo.gl             |
   ;; |  votes  |  528                       |
   ;;  -------------------------------------- 
+  (interactive)
   (newline)
   ;; title line
   (insert-char ? 1)
@@ -63,21 +64,3 @@
       (insert x)
       )article
 (insert-char 97)
-
-(define-derived-mode redis-cli-mode special-mode
-  "redis mode"
-  )
-
-(defun redis-init()
-  (draw-string "redis-cli>")
-  )
-
-(defvar redis-buffer-name "*redis*")
-
-(defun redis_cli()
-  "Start redis cli"
-  (interactive)
-  (switch-to-buffer redis-buffer-name)
-  (redis-cli-mode)
-  (redis-init))
-
