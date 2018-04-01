@@ -1,31 +1,5 @@
 
 ;; helper routines (foundations)
-
-(defun make-grid ()
-  (interactive)
-  (erase-buffer)
-  (dotimes (i height)
-    (insert-char background-char width)
-    (newline)))
-
-
-(defun draw-char (x y char)
-  (interactive)
-  (goto-char (+ x (* (1- y) (1+ width))))
-  (delete-char 1)
-  (insert-char char 1))
-
-(dotimes (i 5)
-(draw-char i i ?-)
-(newline))
-
-
-((goto-char (point-min))
-(delete-char 1)
-(insert-char ?* 1))
-
-(draw-char 2 2 ?*)
-
 (defun draw-string(str)
   "draw a str near cursor"
   (loop for x in (string-to-list str) do
@@ -38,7 +12,7 @@
   (insert-char ? (- width left-margin (length str)))
   )
 
-(insert-string-with-margin "hello" 2 10)  hello   
+(insert-string-with-margin "hello" 2 10)  hello     hello     hello   
 
 (defun draw-rect(width height title key-type value-list)
   "show redis key content"
@@ -87,5 +61,23 @@
 (substring "article" 0 2)
 (loop for x in (string-to-list "article") do
       (insert x)
-      )
+      )article
 (insert-char 97)
+
+(define-derived-mode redis-cli-mode special-mode
+  "redis mode"
+  )
+
+(defun redis-init()
+  (draw-string "redis-cli>")
+  )
+
+(defvar redis-buffer-name "*redis*")
+
+(defun redis_cli()
+  "Start redis cli"
+  (interactive)
+  (switch-to-buffer redis-buffer-name)
+  (redis-cli-mode)
+  (redis-init))
+
