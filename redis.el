@@ -14,7 +14,7 @@
 
 ;; (insert-string-with-margin "hello" 2 10)
 
-(defun draw-rect(width height title key-type value-list)
+(defun draw-rect(width height title key-type value-list only-value)
   "show redis key content"
   ;;  --article:92617-----------------hash-- 
   ;; |         |                            |
@@ -37,15 +37,23 @@
   (newline)
   ;; build body
   (setq max-key-length 9)
-  (setq value-list (push '("" "") value-list) )
+  (setq head-value "")
+  (if (not only-value)
+      (setq head-value '("" "")))
+  (setq value-list (push head-value value-list) )
   (loop for pair in value-list do
         (progn
-          (setq key (nth 0 pair))
-          (setq value (nth 1 pair))
           (insert-char ?| 1)
-          (insert-string-with-margin key 2 max-key-length)
-          (insert-char ?| 1)
-          (insert-string-with-margin value 2 (- width 1 max-key-length 1 1))
+          (if (not only-value)
+              (progn 
+                (setq key (nth 0 pair))
+                (setq value (nth 1 pair))
+                (insert-string-with-margin key 2 max-key-length)
+                (insert-char ?| 1)
+                (insert-string-with-margin value 2 (- width 1 max-key-length 1 1))
+                )
+              (insert-string-with-margin pair 2 (- width 2))
+            )
           (insert-char ?| 1)
           (newline))
         )
@@ -58,7 +66,7 @@
                        '("link" "http://goo.gl")
                        '("votes" "528")
                        ))
-(draw-rect 40 8 "article:92617" "hash" value-list)
+(draw-rect 40 8 "article:92617" "hash" value-list nil)
 (substring "article" 0 2)
 (loop for x in (string-to-list "article") do
       (insert x)
