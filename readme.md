@@ -60,3 +60,9 @@ redis-cli>smembers myset
 
 redis-cli>
 ```
+
+# TODO
+- [ ] [bug!!]choose a suitable style for string/json set and list
+- [ ] [bug!!]adjust the gap in data view, support multiline in text filed
+- [ ] [bug!!!]find a way to support any command in redis-cli.el and init with host and port
+- [ ] [feature]incr or hmset eg.. modify command, show the change info(recently add or value change) with color(green for add, blue for change, red for del) and simple view ( + 1, -> new value)
